@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+
+.comment-list {
+  list-style-type: none;
+}
+
+.newCommentForm {
+  position: fixed;
+  top: 25%;
+  left: 25%;
+  background-color: azure;
+  width: 50%;
+  height: 50%;
+  display: block;
+  border-radius: 15px;
+}
+
+.newCommentForm form {
+  display: grid;
+}
+
+.newCommentForm label, .newCommentForm input {
+  padding: 0.25em;
+  margin: auto;
+}
+
+.newCommentForm input {
+  margin-left: 0.5em;
+}
+.exitForm {
+  cursor: pointer;
+}
