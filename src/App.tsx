@@ -5,7 +5,7 @@ import Comments from './components/Comments';
 import NewCommentForm from './components/newCommentForm';
 function App() {
 
-  const [isFormActive,setFormActive] = useState<Boolean>(false);
+  const [isFormActive,setFormActive] = useState<boolean>(false);
   const onClickedNewCommentButton = () => {
     console.log("form active")
       setFormActive(true);
@@ -17,9 +17,12 @@ function App() {
   }
   return (
     <div className="App">
-      <Header />
-      <Comments onClickedNewCommentButton={onClickedNewCommentButton}/>
-      {isFormActive ? <NewCommentForm setFormActive={setFormActive} handleSubmit={handleSubmit} /> : ''}
+      {/* <Header /> */}
+      {/* <header className="App-header"> */}
+            <h1>Comments App</h1>
+            <Comments onClickedNewCommentButton={onClickedNewCommentButton}/>
+            {isFormActive ? <NewCommentForm isFormActive={isFormActive} setFormActive={setFormActive} handleSubmit={handleSubmit} /> : ''}
+        {/* </header> */}
     </div>
   );
 }

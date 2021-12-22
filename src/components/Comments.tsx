@@ -1,7 +1,20 @@
 import React, { useEffect, useState } from "react";
-
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import List from '@mui/material/List'
+import ListItem from '@mui/material/ListItem'
+import ListItemText from '@mui/material/ListItemText'
+import Typography from '@mui/material/Typography'
+import Divider from '@mui/material/Divider'
 type CommentProps = {
     onClickedNewCommentButton: Function
+}
+
+const style = {
+    card: {
+        margin: '1em auto'
+    }
 }
 const Comments: React.FunctionComponent<CommentProps> = ({onClickedNewCommentButton}) => {
     const [APIcomments, setAPIcomments] = useState<Array<any>>([]);
@@ -17,30 +30,51 @@ const Comments: React.FunctionComponent<CommentProps> = ({onClickedNewCommentBut
     return (
         <div>
             <h1>Comments component lolol</h1>
-            <button onClick={() => onClickedNewCommentButton()}>Add Comment</button>
-            {APIcomments ? 
-            <ul className="comment-list">
-                {APIcomments.map(comment => {
-                    if (comment.name && comment.email && comment.body)
-                    {
-                        return (
-                            <li key={comment.id}>
-                                <h1>{comment.name}</h1>
-                                <h2>{comment.email}</h2>
-                                <p>{comment.body}</p>
-                            </li>
-                        )
-                    } 
-                    else 
-                    {
-                        return <h1>Comment Unavailable, Please check your internet connection.</h1>;
-                    }
-                   
-                }) }
-            </ul>
-            : <h1>No comments yet..</h1>}
+            <Button color="secondary" variant="contained" onClick={() => onClickedNewCommentButton()}>Add Comment</Button>
+            {APIcomments ? <CommentList comments={APIcomments} /> : <h1>No comments yet..</h1>}
         </div>
     )
 };
 
+
+type CommentListProps = {
+    comments: Array<any>
+}
+const CommentList: React.FunctionComponent<CommentListProps> = ({comments}) => {
+    return (
+        <List sx={{ width: '100%', maxWidth: 360, gap: 2,m: '0 auto'}}>
+            {comments.map(comment => {
+                return (
+                    <Card style={style.card}
+                          sx={{ minWidth: 275 }} key={comment.name}>
+                        <CardContent>
+                            <ListItem alignItems="flex-start">
+                                <ListItemText
+                                    primary={comment.name}
+                                    secondary={
+                                        <React.Fragment>
+                                        <Typography
+                                        sx={{ display: 'inline' }}
+                                        component="span"
+                                        variant="body2"
+                                        color="text.primary"
+                                        >
+                                        {comment.email}
+                                        </Typography>
+                                        <Divider />
+                                        <Typography>
+                                        {comment.body}
+
+                                        </Typography>
+                                    </React.Fragment>
+                                    }
+                                    />
+                            </ListItem>
+                        </CardContent>
+                    </Card>
+                )
+            })}
+        </List>
+    )
+};
 export default Comments;
