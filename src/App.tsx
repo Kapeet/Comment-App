@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import './App.css';
 import Header from './components/Header'
 import Comments from './components/Comments';
@@ -66,7 +66,9 @@ function App() {
         message={isCommentPosted ? "Comment succesfully posted!" : "Something went wrong while posting your comment!"}
         action={exitSnackbar}
       />
-      <h1>Comments App</h1>
+      <Suspense fallback={null}>
+        <Header />
+      </Suspense>
       <Comments onClickedNewCommentButton={onClickedNewCommentButton} />
       {isFormActive ? <NewCommentForm commentData={commentData} setCommentData={setCommentData} isFormActive={isFormActive} setFormActive={setFormActive} handleSubmit={handleSubmit} /> : ''}
       {/* </header> */}
