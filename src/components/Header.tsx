@@ -1,7 +1,6 @@
-import React, { Suspense, useEffect } from "react";
-import { AmbientLightProps, Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
+import React from "react";
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { PerspectiveCamera } from "three";
 
 const Header: React.FunctionComponent = () => {
 
@@ -22,9 +21,6 @@ const MyScene: React.FunctionComponent = () => {
     camera.position.z = .3;
 
     useFrame(() => {
-        // camera.position.x -= 0.01;
-        // // camera.position.y -= 0.01;
-        // camera.position.z += 0.01;
         gltf.scene.rotation.y -= 0.02;
     });
 
@@ -32,7 +28,9 @@ const MyScene: React.FunctionComponent = () => {
         <>
             <ambientLight intensity={0.5} />
             <directionalLight color="white" position={[0, 1, 0]} />
-            <primitive object={gltf.scene} position={[0, 0, 0]} />
+            <primitive object={gltf.scene} position={[0, 0, 0]}
+                onPointerOver={() => gltf.scene.position.z = 0.05}
+                onPointerOut={() => gltf.scene.position.z = 0} />
 
         </>
     )

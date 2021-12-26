@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
 import CancelIcon from '@mui/icons-material/Cancel';
-import { newCommentProps, newCommentData } from "../propTypes";
+import { newCommentProps } from "../propTypes";
 const style = {
     box: {
         position: 'absolute' as 'absolute',
@@ -33,7 +33,7 @@ const style = {
     }
 };
 
-const NewCommentForm = ({ commentData, setCommentData, isFormActive, setFormActive, handleSubmit }: newCommentProps) => {
+const NewCommentForm = ({ setCommentData, isFormActive, setFormActive, handleSubmit }: newCommentProps) => {
 
     const onSubmittedNewComment = (event: any) => {
         setFormActive(false);
@@ -46,7 +46,6 @@ const NewCommentForm = ({ commentData, setCommentData, isFormActive, setFormActi
             email: submittedEmail,
             body: submittedCommentBody
         });
-        console.log("updated new comment Data");
     };
     return (
         <Modal

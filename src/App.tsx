@@ -12,15 +12,13 @@ function App() {
   const [isFormActive, setFormActive] = useState<boolean>(false);
   const [isSnackbarOpen, setSnackbarOpen] = useState<boolean>(false);
   const onClickedNewCommentButton = () => {
-    console.log("form active")
+
     setFormActive(true);
   };
   const [commentData, setCommentData] = useState<newCommentData | undefined>(undefined);
   const [isCommentPosted, setCommentPosted] = useState<boolean | undefined>(false);
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log("submit");
-    console.log(event);
   }
   const postComment = () => {
     const requestOptions = {
@@ -30,11 +28,10 @@ function App() {
     };
     fetch('https://test.steps.me/test/testAssignComment', requestOptions)
       .then(res => res.json())
-      .then(data => setCommentPosted(true))
-      .catch(err => {
+      .then(() => setCommentPosted(true))
+      .catch(() => {
         setCommentPosted(false);
-
-      })
+      });
   };
 
   const handleSnackbarClose = (event: React.SyntheticEvent | Event, reason?: string) => {
@@ -71,7 +68,6 @@ function App() {
       </Suspense>
       <Comments onClickedNewCommentButton={onClickedNewCommentButton} />
       {isFormActive ? <NewCommentForm commentData={commentData} setCommentData={setCommentData} isFormActive={isFormActive} setFormActive={setFormActive} handleSubmit={handleSubmit} /> : ''}
-      {/* </header> */}
     </div>
   );
 }
