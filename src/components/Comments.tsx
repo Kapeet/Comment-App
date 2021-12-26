@@ -24,7 +24,7 @@ const Comments: React.FunctionComponent<CommentsProps> = ({ onClickedNewCommentB
     const [userScrolls, setUserScrolls] = useState<number>(0);
 
     const fetchData = () => {
-        fetch(`http://jsonplaceholder.typicode.com/comments?_start=${userScrolls}&_end=${userScrolls + amountOfCommentsToShow}`)
+        fetch(`https://jsonplaceholder.typicode.com/comments?_start=${userScrolls}&_end=${userScrolls + amountOfCommentsToShow}`)
             .then(response => response.json())
             .then(data => {
                 if (APIcomments && APIcomments.length) {
