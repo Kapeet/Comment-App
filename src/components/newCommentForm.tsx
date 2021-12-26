@@ -55,7 +55,7 @@ const NewCommentForm = ({ commentData, setCommentData, isFormActive, setFormActi
             aria-labelledby="modal-modal-title"
             aria-describedby="modal-modal-description"
         >
-            <Box sx={style.box}>
+            <Box sx={style.box} className="modalbox">
                 <form onSubmit={onSubmittedNewComment}>
                     <div>
                         <TextField name="fullname" style={style.input} id="fullname" label="Your Full Name" variant="standard" />

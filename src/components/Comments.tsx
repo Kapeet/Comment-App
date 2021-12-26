@@ -43,7 +43,7 @@ const Comments: React.FunctionComponent<CommentsProps> = ({ onClickedNewCommentB
     }, [userScrolls])
     return (
         <div>
-            <Button color="secondary" variant="contained" onClick={() => onClickedNewCommentButton()}>Add Comment</Button>
+            <Button color="primary" variant="contained" onClick={() => onClickedNewCommentButton()}>Add Comment</Button>
             {APIcomments ?
                 <InfiniteScroll
                     dataLength={APIcomments ? APIcomments.length : amountOfCommentsToShow}
