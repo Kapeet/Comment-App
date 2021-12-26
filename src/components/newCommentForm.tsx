@@ -1,18 +1,10 @@
-import React from "react";
-import { ImCancelCircle } from 'react-icons/im';
+import React, { useState, useEffect } from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
-import Divider from '@mui/material/Divider';
 import CancelIcon from '@mui/icons-material/Cancel';
-interface newCommentProps {
-    isFormActive: boolean,
-    setFormActive: Function,
-    handleSubmit: Function
-}
-
+import { newCommentProps, newCommentData } from "../propTypes";
 const style = {
     box: {
         position: 'absolute' as 'absolute',
@@ -41,7 +33,21 @@ const style = {
     }
 };
 
-const NewCommentForm = ({ isFormActive, setFormActive, handleSubmit }: newCommentProps) => {
+const NewCommentForm = ({ commentData, setCommentData, isFormActive, setFormActive, handleSubmit }: newCommentProps) => {
+
+    const onSubmittedNewComment = (event: any) => {
+        setFormActive(false);
+        event.preventDefault();
+        let submittedName: string = event.target["fullname"].value;
+        let submittedEmail: string = event.target["email"].value;
+        let submittedCommentBody: string = event.target["body"].value;
+        setCommentData({
+            fullname: submittedName,
+            email: submittedEmail,
+            body: submittedCommentBody
+        });
+        console.log("updated new comment Data");
+    };
     return (
         <Modal
             open={isFormActive}
@@ -50,24 +56,28 @@ const NewCommentForm = ({ isFormActive, setFormActive, handleSubmit }: newCommen
             aria-describedby="modal-modal-description"
         >
             <Box sx={style.box}>
-                <div style={{ display: 'flex' }}>
-                    <TextField style={style.input} id="fullname" label="Your Full Name" variant="standard" />
-                    <TextField style={style.input} id="email" label="Your Email" variant="standard" />
-                </div>
-                <TextField style={style.comment} id="commentbody" label="Your Comment" multiline variant="outlined" />
-                <div style={style.flexDiv}>
-                    <Button style={style.Btn} variant="contained">Add new comment</Button>
+                <form onSubmit={onSubmittedNewComment}>
+                    <div>
+                        <TextField name="fullname" style={style.input} id="fullname" label="Your Full Name" variant="standard" />
+                        <TextField name="email" type="email" style={style.input} id="email" label="Your Email" variant="standard" />
+                        <TextField name="body" style={style.comment} id="commentbody" label="Your Comment" multiline variant="standard" />
+                    </div>
+                    <div style={style.flexDiv}>
+                        <Button style={style.Btn}
+                            type="submit"
+                            variant="contained">Add new comment</Button>
 
-                    <Button
-                        color="error"
-                        style={style.Btn}
-                        onClick={() => setFormActive(false)}
-                        startIcon={<CancelIcon />}
-                        variant="contained"
-                    >
-                        Cancel
-                    </Button>
-                </div>
+                        <Button
+                            color="error"
+                            style={style.Btn}
+                            onClick={() => setFormActive(false)}
+                            startIcon={<CancelIcon />}
+                            variant="contained"
+                        >
+                            Cancel
+                        </Button>
+                    </div>
+                </form>
             </Box>
         </Modal>
     );
