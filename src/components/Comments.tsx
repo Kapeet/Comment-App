@@ -11,13 +11,7 @@ import Typography from '@mui/material/Typography'
 import { CommentsProps, CommentListProps, CommentBodyProps } from "../propTypes";
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { amountOfCommentsToShow, getAPIdata } from "../functions/api";
-
-
-const style = {
-    card: {
-        margin: '1em auto'
-    }
-}
+import style from '../style'
 
 const Comments: React.FunctionComponent<CommentsProps> = ({ getComments, userScrolls, setUserScrolls, APIcomments, onClickedNewCommentButton }) => {
 

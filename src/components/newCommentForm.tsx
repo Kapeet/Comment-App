@@ -5,35 +5,9 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField'
 import CancelIcon from '@mui/icons-material/Cancel';
 import { newCommentProps } from "../propTypes";
-const style = {
-    box: {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: "25em",
-        bgcolor: 'background.paper',
-        boxShadow: 26,
-        p: 3,
-    },
-    input: {
-        margin: '0.5em'
-    },
-    comment: {
-        margin: '0.5em',
-        width: '100%'
-    },
-    Btn: {
-        // display: 'block',
-        margin: '0.5em auto'
-    },
-    flexDiv: {
-        display: 'flex',
-        justifyContent: 'center'
-    }
-};
+import style from '../style';
 
-const NewCommentForm = ({ setCommentData, isFormActive, setFormActive, handleSubmit }: newCommentProps) => {
+const NewCommentForm: React.FunctionComponent<newCommentProps> = ({ setCommentData, isFormActive, setFormActive, handleSubmit }) => {
 
     const onSubmittedNewComment = (event: any) => {
         setFormActive(false);
