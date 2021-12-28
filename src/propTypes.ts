@@ -1,6 +1,10 @@
 
 export type CommentsProps = {
     onClickedNewCommentButton: Function
+    APIcomments: Array<Object>
+    userScrolls: number
+    setUserScrolls: Function
+    getComments: Function
 };
 
 export type CommentListProps = {

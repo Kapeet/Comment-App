@@ -7,31 +7,31 @@ import { newCommentData } from './propTypes';
 import { Snackbar } from '@mui/material';
 import { IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { getAPIdata, postCommentToAPI } from './functions/api';
 function App() {
+  const [APIcomments, setAPIcomments] = useState<Array<Object>>([]);
+  const [userScrolls, setUserScrolls] = useState<number>(0);
 
   const [isFormActive, setFormActive] = useState<boolean>(false);
   const [isSnackbarOpen, setSnackbarOpen] = useState<boolean>(false);
-  const onClickedNewCommentButton = () => {
-
-    setFormActive(true);
-  };
   const [commentData, setCommentData] = useState<newCommentData | undefined>(undefined);
   const [isCommentPosted, setCommentPosted] = useState<boolean | undefined>(false);
   const handleSubmit = (event: any) => {
     event.preventDefault();
   }
-  const postComment = () => {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(commentData)
-    };
-    fetch('https://test.steps.me/test/testAssignComment', requestOptions)
-      .then(res => res.json())
-      .then(() => setCommentPosted(true))
-      .catch(() => {
-        setCommentPosted(false);
-      });
+
+  const getComments = async () => {
+    let comments: any = await getAPIdata(APIcomments, userScrolls);
+    setAPIcomments(comments);
+  }
+  const postComment = async () => {
+    let isCommentPosted: boolean = await postCommentToAPI(commentData);
+    if (isCommentPosted === true) {
+      setCommentPosted(true);
+    }
+    else {
+      setCommentPosted(false);
+    }
   };
 
   const handleSnackbarClose = (event: React.SyntheticEvent | Event, reason?: string) => {
@@ -66,7 +66,7 @@ function App() {
       <Suspense fallback={null}>
         <Header />
       </Suspense>
-      <Comments onClickedNewCommentButton={onClickedNewCommentButton} />
+      <Comments getComments={getComments} userScrolls={userScrolls} setUserScrolls={setUserScrolls} APIcomments={APIcomments} onClickedNewCommentButton={() => setFormActive(true)} />
       {isFormActive ? <NewCommentForm commentData={commentData} setCommentData={setCommentData} isFormActive={isFormActive} setFormActive={setFormActive} handleSubmit={handleSubmit} /> : ''}
     </div>
   );

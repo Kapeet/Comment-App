@@ -10,7 +10,7 @@ import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import { CommentsProps, CommentListProps, CommentBodyProps } from "../propTypes";
 import InfiniteScroll from 'react-infinite-scroll-component';
-
+import { amountOfCommentsToShow, getAPIdata } from "../functions/api";
 
 
 const style = {
@@ -18,28 +18,11 @@ const style = {
         margin: '1em auto'
     }
 }
-const amountOfCommentsToShow: number = 20;
-const Comments: React.FunctionComponent<CommentsProps> = ({ onClickedNewCommentButton }) => {
-    const [APIcomments, setAPIcomments] = useState<Array<Object>>([]);
-    const [userScrolls, setUserScrolls] = useState<number>(0);
 
-    const fetchData = () => {
-        fetch(`https://jsonplaceholder.typicode.com/comments?_start=${userScrolls}&_end=${userScrolls + amountOfCommentsToShow}`)
-            .then(response => response.json())
-            .then(data => {
-                if (APIcomments && APIcomments.length) {
-                    let combinedComments: Array<Object> = APIcomments.concat(data);
-                    console.log(combinedComments);
-                    console.log(APIcomments);
-                    setAPIcomments(combinedComments);
-                }
-                else {
-                    setAPIcomments(data);
-                }
-            });
-    };
+const Comments: React.FunctionComponent<CommentsProps> = ({ getComments, userScrolls, setUserScrolls, APIcomments, onClickedNewCommentButton }) => {
+
     useEffect(() => {
-        fetchData();
+        getComments();
     }, [userScrolls])
     return (
         <div>
@@ -48,7 +31,7 @@ const Comments: React.FunctionComponent<CommentsProps> = ({ onClickedNewCommentB
                 <InfiniteScroll
                     dataLength={APIcomments ? APIcomments.length : amountOfCommentsToShow}
                     next={() => setUserScrolls(userScrolls + amountOfCommentsToShow)}
-                    hasMore={true}
+                    hasMore={true} //find out what hasMore means, it should not be 'true'
                     loader={<h4>Loading...</h4>}
                 >
                     <CommentList
